@@ -159,9 +159,10 @@ const aboutContent = {
   body: [
     'I got asked why I do recitals, and more broadly, why I continue to play music. Then I thought, hm, I have a short answer, which is that "I love music," but I feel like I don\'t really get to give the long answer. So I decided to take a chance to get a bit more personal than usual and share my thoughts here.',
     "Music really has a special place in my heart because it really kept me going during the most difficult times. In high school, I moved far away from home and family. I had a difficult time adjusting, making friends, navigating language barriers, and generally feeling disconnected from the people around me. Listening to music helped, but what really got me through was the little world of music I started building by playing and practicing the art of making music.",
-    "Then my world opened up in a different way. I met friends in orchestra, learned to loosen up and goof around, and found a space where I could grow through music. Everything from practicing for all-state orchestra, experiencing an irreplaceable joy when I feel fully connected to the music while playing, dragging myself to lessons knowing that I will probably end up getting completely roasted, concerts where everything came together, and recitals where I fell short and felt I hadn't done justice to the pieces—all of this formed a cycle of music-making that has shaped how I think and live life overall. Music has made me the most vulnerable in some ways and also has made me strong in ways I know other things couldn't have. It has influenced how I approach other fields, navigate challenges, and make decisions, and is ultimately fundamental to how I move through the world.",
+    "Then my world opened up in a different way. I met friends in orchestra, learned to loosen up and goof around, and found a space where I could grow through music. Everything from practicing for all-state orchestra, experiencing an irreplaceable joy when I feel fully connected to the music while playing, dragging myself to lessons knowing that I will probably end up getting completely roasted, concerts where everything came together, and recitals where I fell short and felt I hadn't done justice to the pieces—all of this formed a cycle of music-making that has shaped how I think and live life overall. Music has made me vulnerable in some of the deepest ways, while also giving me an unsual kind of strength I don’t think I could have found elsewhere. It has influenced how I approach other fields, navigate challenges, and make decisions, and is ultimately fundamental to how I move through the world.",
     "I know this can sound a bit dramatic or overly serious, but I do feel this way. As a non-professional musician, there have definitely been moments where I've had to decide whether to keep going. But I've never really intended to step away. Even when it's difficult, I want to stay with it. I've met some of the best people through music, and even though the repertoire I play is often centuries old, I always find ways to be inspired.",
     "I am not the most virtuosic instrumentalist, and so I don't find particular joy in playing the most technically impressive pieces. What matters to me instead is that every engagement I have with music is genuine, personal, and respectful toward the music itself. This is perhaps why I felt drawn to Schubert, whose music has guided me most in times of crisis. It is a privilege to continue playing the violin and to be part of this tradition and culture, and I hope to continue doing so for a while :)",
+    "I also want to thank Eric for joining me on this journey. We both have busy times ahead of us but I am excited to continue making music together!",
   ],
 };
 
@@ -199,7 +200,7 @@ const quotesContent = [
 const factsContent = [
   {
     tag: "BUFF: PROLIFIC",
-    fact: "He wrote over 140 songs in a single year. In 1815 alone, at just 18, he produced an astonishing flood of lieder. That's roughly one song every two and a half days, on top of operas, masses, and symphonies.",
+    fact: "He wrote over 140 songs in a single year. That's roughly one song every two and a half days, on top of operas, masses, and symphonies.",
   },
   {
     tag: "LOG: LEFT ON READ",
@@ -210,8 +211,12 @@ const factsContent = [
     fact: 'Viennese social gatherings called "Schubertiaden" were devoted entirely to performing his songs and dances, which is pretty good for someone who struggled financially his whole life.',
   },
   {
+    tag: "ABOUT: THE PIANIST",
+    fact: "Eric's favorite piece form Schubert is his Piano Sonata in B-flat Major, D. 960.",
+  },
+  {
     tag: "QUEST: FINAL CONCERT",
-    fact: "His only public concert, in March 1828, was successful enough that he could finally buy a piano. He died eight months later, at 31, of typhoid fever from contaminated water.",
+    fact: "His only public concert, in March 1828, was successful enough that he could finally buy a piano. He died eight months later, at 31.",
   },
   {
     tag: "NO ONE ASKED: BUT",
@@ -223,7 +228,7 @@ const factsContent = [
   },
   {
     tag: "LOG: BEETHOVEN FAN",
-    fact: "Regardless of whether they met on his deathbed, Schubert deeply revered Beethoven. He served as one of the torchbearers at Beethoven's funeral, and requested to be buried alongside him at the Währing cemetery in Vienna.",
+    fact: "Schubert deeply revered Beethoven. He served as one of the torchbearers at Beethoven's funeral, and requested to be buried alongside him at the Währing cemetery in Vienna. His wish was granted.",
   },
 ];
 

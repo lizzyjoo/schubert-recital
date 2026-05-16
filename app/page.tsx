@@ -167,7 +167,7 @@ const aboutContent = {
 
 const quotesContent = [
   {
-    text: "Wow there is basically no development in the first movt. What. Oh I see, this mans was too depressed to develop. He devloped in the second instead",
+    text: "Wow there is basically no development in the first movt. What. Oh I see, this mans was too depressed to develop. He developed in the second instead",
     author: "ERIC, IN REACTION TO THE 1ST MVT OF A MINOR SONATA",
   },
   {

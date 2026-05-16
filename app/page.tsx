@@ -180,7 +180,7 @@ const quotesContent = [
   },
   {
     text: "Here, it’s like…like...like..b i r d s",
-    author: "LIZZY, TO THE 3RD MVT",
+    author: "LIZZY, TO THE 3RD MVT OF A MAJOR",
   },
   {
     text: "Schubert is like really bi-polar",

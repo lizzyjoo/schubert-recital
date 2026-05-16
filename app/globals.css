@@ -1,26 +1,475 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0d0d0d;
+  --bg-surface: #141418;
+  --terminal-bg: #1a1a22;
+  --accent: #c8b8e8;
+  --accent-bright: #e0d0ff;
+  --accent-dim: #6b5f8a;
+  --text: #d4d0dc;
+  --text-dim: #78747e;
+  --border: #2a2830;
+  --border-bright: #3d3850;
+  --danger: #e87070;
+  --success: #7oe87a;
+  --font-pixel: "Press Start 2P", monospace;
+  --font-mono: "IBM Plex Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Scanline Overlay ─────────────────────────────────────────────────── */
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+}
+
+/* ─── App Root ─────────────────────────────────────────────────────────── */
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ─── Header ───────────────────────────────────────────────────────────── */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+}
+
+.header-icon {
+  display: flex;
+}
+
+.header-title {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.header-status {
+  margin-left: auto;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--accent-dim);
+  animation: pulse-status 2s ease-in-out infinite;
+}
+
+@keyframes pulse-status {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Content Area ─────────────────────────────────────────────────────── */
+
+.content-area {
+  flex: 1;
+  overflow: hidden;
+  padding: 16px;
+  padding-bottom: 76px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.content-area.exit-left {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.content-area.exit-right {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+/* ─── Panel Window ─────────────────────────────────────────────────────── */
+
+.panel-window {
+  border: 1px solid var(--border-bright);
+  background: var(--bg-surface);
+  animation: fadeInUp 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.window-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--terminal-bg);
+}
+
+.window-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+
+.window-dot.hollow {
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  margin-left: auto;
+}
+
+.window-title {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.window-body {
+  padding: 20px 16px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── About Panel ──────────────────────────────────────────────────────── */
+
+.about-avatar {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--border-bright);
+  background: var(--terminal-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.about-title {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  color: var(--accent-bright);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.log-tag {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--bg);
+  background: var(--accent);
+  display: inline-block;
+  padding: 4px 8px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.about-text p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+  letter-spacing: 0.2px;
+}
+
+.stats-section {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-card {
+  border: 1px solid var(--border);
+  background: var(--terminal-bg);
+  padding: 12px;
+}
+
+.stat-label {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+/* ─── CTA Button ───────────────────────────────────────────────────────── */
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s ease;
+}
+
+.cta-btn:active {
+  background: var(--accent-bright);
+}
+
+.cta-btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+  font-size: 0.8em;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ─── Quotes Panel ─────────────────────────────────────────────────────── */
+
+.quotes-subtitle {
+  font-family: var(--font-pixel);
+  font-size: 6px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.quote-block {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.quote-block:last-of-type {
+  border-bottom: none;
+}
+
+.quote-marker {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  color: var(--accent-dim);
+  margin-bottom: 6px;
+}
+
+.quote-text {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text);
+  font-style: normal;
+  margin-bottom: 8px;
+}
+
+.quote-author {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  font-style: normal;
+}
+
+/* ─── Facts Panel ──────────────────────────────────────────────────────── */
+
+.facts-boot {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 14px;
+  margin-bottom: 20px;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  line-height: 2;
+  letter-spacing: 0.5px;
+}
+
+.boot-line {
+  display: block;
+}
+
+.fact-card {
+  border: 1px solid var(--border);
+  padding: 14px;
+  margin-bottom: 10px;
+  background: var(--terminal-bg);
+}
+
+.fact-tag {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.fact-text {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ─── Swipe Dots ───────────────────────────────────────────────────────── */
+
+.swipe-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 0;
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: var(--border-bright);
+  transition: all 0.2s ease;
+}
+
+.dot.active {
+  background: var(--accent);
+  width: 18px;
+}
+
+/* ─── Tab Bar ──────────────────────────────────────────────────────────── */
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: color 0.15s ease;
+}
+
+.tab-btn.active {
+  color: var(--accent);
+}
+
+.tab-btn.active .tab-label {
+  color: var(--accent);
+}
+
+.tab-label {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+
+/* ─── Fade-in animation ───────────────────────────────────────────────── */
+
+.fade-in-text {
+  animation: fadeIn 0.5s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

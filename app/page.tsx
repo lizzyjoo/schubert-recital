@@ -408,7 +408,7 @@ function AboutPanel() {
     <div className="panel-window">
       <div className="window-header">
         <span className="window-dot" />
-        <span className="window-title">SCHUBERTIADEN.EXE</span>
+        <span className="window-title">RECITAL.EXE</span>
         <span className="window-dot hollow" />
       </div>
       <div className="window-body">
@@ -562,9 +562,7 @@ function GuestbookPanel() {
         <span className="window-dot hollow" />
       </div>
       <div className="window-body">
-        <p className="guest-intro">
-          LEAVE A MESSAGE IN THE LOG. ALL TRANSMISSIONS ARE WELCOME.
-        </p>
+        <p className="guest-intro">LEAVE A MESSAGE IN THE LOG.</p>
         <div className="guest-form">
           <input
             className="guest-input"
@@ -678,7 +676,7 @@ export default function App() {
             <span style={{ display: "flex", color: "var(--accent)" }}>
               <IconNote size={16} />
             </span>
-            <span className="header-title">RECITAL.EXE</span>
+            <span className="header-title">SCHUBERTIADEN.EXE</span>
             <span className="header-status">● LIVE</span>
           </div>
         </header>

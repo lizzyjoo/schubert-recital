@@ -32,7 +32,15 @@ export async function POST(req: NextRequest) {
     const entry: GuestEntry = {
       name: name.trim().toUpperCase().slice(0, 30),
       msg: msg.trim().slice(0, 280),
-      time: new Date().toISOString().slice(0, 16).replace("T", " "),
+      time: new Date().toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
     };
 
     // Push to the front of the list so newest is first
